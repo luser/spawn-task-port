@@ -11,6 +11,7 @@ use std::ops::Drop;
 use std::os::unix::process::CommandExt;
 use std::process::{Command, Child};
 
+use mach::bootstrap::bootstrap_look_up;
 use mach::kern_return::{kern_return_t, KERN_SUCCESS};
 use mach::port::{MACH_PORT_NULL, MACH_PORT_RIGHT_RECEIVE};
 use mach::mach_port::{mach_port_allocate, mach_port_deallocate, mach_port_insert_right};
@@ -66,13 +67,6 @@ struct RecvMessage {
 }
 
 extern "C" {
-    // Technically name_t would be `[i8; 128]`, but that just makes it more
-    // of a pain to use and the calling convention is the same.
-    //TODO: put this in the mach crate.
-    fn bootstrap_look_up(bp: mach_port_t,
-                         service_name: *const i8,
-                         sp: *mut mach_port_t)
-                         -> kern_return_t;
     /// This is not a public API, but it's what everything uses internally.
     fn bootstrap_register2(bp: mach_port_t,
                            service_name: *const i8,
