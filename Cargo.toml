@@ -1,6 +1,6 @@
 [package]
 name = "spawn-task-port"
-version = "0.1.1pre"
+version = "0.1.1-pre"
 authors = ["Ted Mielczarek <ted@mielczarek.org>"]
 license = "MIT"
 description = "Spawn a child process on OS X and get the child's Mach task port."
