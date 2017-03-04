@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/luser/rust-spawn-task-port.svg?branch=master)](https://travis-ci.org/luser/rust-spawn-task-port)
+[![Build Status](https://travis-ci.org/luser/rust-spawn-task-port.svg?branch=master)](https://travis-ci.org/luser/rust-spawn-task-port) [![crates.io](https://img.shields.io/crates/v/spawn-task-port.svg)](https://crates.io/crates/spawn-task-port) [![](https://docs.rs/spawn-task-port/badge.svg)](https://docs.rs/spawn-task-port)
 
 A crate to spawn a child process on OS X and get the child's Mach task port. [Many useful OS X kernel APIs](http://web.mit.edu/darwin/src/modules/xnu/osfmk/man/) require access to the task port, and in recent releases of OS X the security around `task_for_pid` has been tightened such that it no longer works reliably even as root. However, for processes that you are spawning it is possible to have the child cooperate and send its task port to the parent. This crate uses `CommandExt::before_exec` and a handful of Mach APIs to have the child process do just that.
 
