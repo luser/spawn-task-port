@@ -1,0 +1,9 @@
+language: rust
+os:
+- osx
+
+rust:
+  - 1.15
+  - nightly
+  - beta
+  - stable
