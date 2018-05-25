@@ -12,20 +12,29 @@ This crate was written so I could use it to write tests for the [read-process-me
 ```rust,no_run
 extern crate spawn_task_port;
 
+use std::ffi::OsString;
 use std::io;
 use std::process::Command;
 use spawn_task_port::CommandSpawnWithTask;
 
 // Spawn `exe` with `args` as a child process and do interesting
 // things to it.
-fn do_some_work(exe: &str, args: &[&str]) -> io::Result<()> {
- let (mut child, task_port) = Command::new(&)
-        .args(args)
-        .spawn_get_task_port()?
+fn do_some_work(exe: OsString, args: Vec<OsString>) -> io::Result<()> {
+ let (mut child, task_port) = Command::new(&exe)
+        .args(&args)
+        .spawn_get_task_port()?;
  // Now you can call mach APIs that require a `mach_port_t` using `task_port`,
  // like `vm_read`.
  child.wait()?;
  Ok(())
+}
+
+fn main() {
+   use std::env;
+   let mut args = env::args_os().skip(1);
+   let exe = args.next().unwrap();
+   let rest: Vec<_> = args.collect();
+   do_some_work(exe, rest).unwrap();
 }
 ```
 

@@ -6,15 +6,11 @@ license = "MIT"
 description = "Spawn a child process on OS X and get the child's Mach task port."
 homepage = "https://github.com/luser/spawn-task-port"
 repository = "https://github.com/luser/spawn-task-port"
-build = "build.rs"
 
 [dependencies]
 mach = "0.1"
 uuid = { version = "0.4", features = ["v4"] }
 
 [dev-dependencies]
+docmatic = "0.1.2"
 libc = "0.2"
-skeptic = "0.5"
-
-[build-dependencies]
-skeptic = "0.5"
