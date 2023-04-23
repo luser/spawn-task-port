@@ -1,16 +1,21 @@
 [package]
 name = "spawn-task-port"
-version = "0.1.2-alpha.0"
+version = "0.1.3"
+edition = "2021"
 authors = ["Ted Mielczarek <ted@mielczarek.org>"]
 license = "MIT"
 description = "Spawn a child process on OS X and get the child's Mach task port."
 homepage = "https://github.com/luser/spawn-task-port"
 repository = "https://github.com/luser/spawn-task-port"
 
-[dependencies]
-mach = "0.1"
-uuid = { version = "0.4", features = ["v4"] }
+[features]
+default = ["audit_pid"]
+# Use the BSM audit framework to check the pid of the task port recieved
+# Because the bootstrap name used is random and short-lived, there should be no risk
+# of a wrong port being intentionally or accidentally sent, but checking is cheap
+# Disable if you don't want to link to libbsm
+audit_pid = []
 
-[dev-dependencies]
-docmatic = "0.1.2"
-libc = "0.2"
+[dependencies]
+uuid = { version = "1.3.0", features = ["v4"] }
+mach2 = "0.4.1"
